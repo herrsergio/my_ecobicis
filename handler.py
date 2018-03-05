@@ -43,6 +43,7 @@ def get_ecobici_availability():
 
     response = "<html>"
     response += "<head>"
+    response += "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
     response += "<style type='text/css'>"
     response += ".tg {"
     response += "    border-collapse: collapse;"
@@ -85,6 +86,8 @@ def get_ecobici_availability():
     response += "    ;"
     response += "    vertical-align: top"
     response += "}"
+    response += "@media screen and (max-width: 767px) {.tg {width: auto !important;}"
+    response += ".tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;}}"
 
     response += "</style>"
 
