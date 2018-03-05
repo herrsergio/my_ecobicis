@@ -10,11 +10,10 @@ Get the status of my most used bike stations using serverless (Lambda service in
  3. `cd my-ecobicis`
 
  4. Execute the following commands:
-> virtualenv env
-> source venv/bin/activate
-> pip install httplib2
-> pip freeze > requirements.txt
-> npm init 
-> npm install --save serverless-python-requirements
 
- 5. `serverless deploy`
+`virtualenv env`
+`source venv/bin/activate`
+`pip install httplib2`
+`pip freeze > requirements.txt`
+`npm init `
+`npm install --save serverless-python-requir
