@@ -1,0 +1,26 @@
+service: ecobici-availability
+
+frameworkVersion: ">=1.2.0 < 2.0.0"
+
+plugins:
+    - serverless-python-requirements
+
+custom:
+    pythonRequirements:
+        dockerizePip: non-linux
+
+provider:
+    name: aws
+    runtime: python2.7
+    profile: serverless_user
+
+functions:
+    getAvailability:
+        handler: handler.endpoint
+        events:
+            - http:
+                path: ecobicis
+                method: get
+                response:
+                    headers:
+                        Content-type: "'text/html'"
