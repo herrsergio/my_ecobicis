@@ -16,4 +16,6 @@ Get the status of my most used bike stations using serverless (Lambda service in
 `pip install httplib2`
 `pip freeze > requirements.txt`
 `npm init `
-`npm install --save serverless-python-requir
+`npm install --save serverless-python-requirements`
+
+5. `serverless deploy`
