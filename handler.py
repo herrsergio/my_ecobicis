@@ -10,8 +10,8 @@ def get_ecobici_availability():
 
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-    parameters = urllib.urlencode({'client_id': 'INSERT_HERE_YOUR_CLIENT_ID',
-        'client_secret': 'INSERT_HERE_YOUR_CLIENT_SECRET',
+    parameters = urllib.urlencode({'client_id': '1296_59mpl9z8qicc80wc4sowwwcgksw8sgk8coo8g044c0wsc4kw4k', 
+        'client_secret': 'gulbw1hb3lwgo8s4sc0kwowg4k88g4ogsc0ccok4sws48wo48', 
         'grant_type': 'client_credentials'})
 
     resp, response_token = http.request(TOKEN_URL, method='POST', body=parameters, headers=headers)
@@ -28,17 +28,34 @@ def get_ecobici_availability():
     STATUS_STATIONS = "https://pubsbapi.smartbike.com/api/v1/stations/status.json"
 
     resp, response_token = http.request(STATUS_STATIONS, method='GET', headers=headers_access)
+    #resp, response_token = http.request(STATIONS_LIST, method='GET', headers=headers_access)
 
+    #station_data = json.loads(response_token)
+    #pprint(station_data)
 
     status_data = json.loads(response_token)
+    #pprint(status_data)
     # 433 Electricas Jose Ma Olloqui
     # 432 Normales Jose Ma Olloqui
     # 32 Electricas Florencia - Londres
     # 448 Electricas Acapulco Puebla
-    # 22 Oficina
+    # 22 Oficina 
     # 27 IMSS Toledo
     # 37 Cozumel-Puebla
 
+    """
+    response =  "<html><body>"
+    response = "<h1>Bicicletas Disponibles</h1>"
+    response += "<p>Toledo: "  +str(status_data["stationsStatus"][27]['availability']['bikes'])
+    response += "<p>Oficina: " +str(status_data["stationsStatus"][22]['availability']['bikes'])
+    response += "<p>Elec Florencia-Londres: " +str(status_data["stationsStatus"][32]['availability']['bikes'])
+    response += "<p>Elec Acapulco-Puebla: " +str(status_data["stationsStatus"][448]['availability']['bikes'])
+    response += "<p>Cozumel-Puebla: " +str(status_data["stationsStatus"][37]['availability']['bikes'])
+    response += "<p>Elec Jose Ma Olloqui: " +str(status_data["stationsStatus"][433]['availability']['bikes'])
+    response += "<p>Jose Ma Olloqui: " +str(status_data["stationsStatus"][432]['availability']['bikes'])    
+    response += "</body></html>"
+    """
+    
     # https://www.tablesgenerator.com/html_tables#
 
     response = "<html>"
@@ -103,8 +120,16 @@ def get_ecobici_availability():
     response += "   <td class='tg-404i'>"+str(status_data["stationsStatus"][27]['availability']['bikes'])+"</td>"
     response += "</tr>"
     response += "<tr>"
-    response += "    <td class='tg-o9ov'>Oficina</td>"
+    response += "    <td class='tg-o9ov'>Reforma-Praga (Oficina)</td>"
     response += "    <td class='tg-404i'>"+str(status_data["stationsStatus"][22]['availability']['bikes'])+"</td>"
+    response += "</tr>"
+    response += "<tr>"
+    response += "    <td class='tg-o9ov'>Reforma-Dublin</td>"
+    response += "    <td class='tg-404i'>"+str(status_data["stationsStatus"][20]['availability']['bikes'])+"</td>"
+    response += "</tr>"
+    response += "<tr>"
+    response += "    <td class='tg-o9ov'>Reforma-Manchester</td>"
+    response += "    <td class='tg-404i'>"+str(status_data["stationsStatus"][21]['availability']['bikes'])+"</td>"
     response += "</tr>"
     response += "<tr>"
     response += "    <td class='tg-o9ov'>Elec. Florencia-Londres</td>"
@@ -137,11 +162,15 @@ def get_ecobici_availability():
 def endpoint(event, context):
     data = get_ecobici_availability()
 
+    #body = {
+    #"message: "+str(data)
+    #}
+
     response = {
         "statusCode": 200,
         "headers": {
             'Content-Type': 'text/html',
-        },
+        }, 
         "body": data
     }
     return response
