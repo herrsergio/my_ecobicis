@@ -13,7 +13,7 @@ Get the status of my most used bike stations using serverless (Lambda service in
 
 `virtualenv env`
 
-`source venv/bin/activate`
+`source env/bin/activate`
 
 `pip install httplib2`
 
