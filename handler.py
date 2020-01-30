@@ -6,12 +6,12 @@ from pprint import pprint
 def get_ecobici_availability():
     http = httplib2.Http()
 
-    TOKEN_URL = "https://pubsbapi.smartbike.com/oauth/v2/token"
+    TOKEN_URL = "https://pubsbapi-latam.smartbike.com/oauth/v2/token"
 
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-    parameters = urllib.urlencode({'client_id': '1296_59mpl9z8qicc80wc4sowwwcgksw8sgk8coo8g044c0wsc4kw4k', 
-        'client_secret': 'gulbw1hb3lwgo8s4sc0kwowg4k88g4ogsc0ccok4sws48wo48', 
+    parameters = urllib.urlencode({'client_id': '1296_59mpl9z8qicc80wc4sowwwcgksw8sgk8coo8g044c0wsc4kw4k',
+        'client_secret': 'gulbw1hb3lwgo8s4sc0kwowg4k88g4ogsc0ccok4sws48wo48',
         'grant_type': 'client_credentials'})
 
     resp, response_token = http.request(TOKEN_URL, method='POST', body=parameters, headers=headers)
@@ -24,8 +24,8 @@ def get_ecobici_availability():
 
     headers_access = {'Authorization': 'Bearer ' +ACCESS_TOKEN}
 
-    STATIONS_LIST = "https://pubsbapi.smartbike.com/api/v1/stations.json"
-    STATUS_STATIONS = "https://pubsbapi.smartbike.com/api/v1/stations/status.json"
+    STATIONS_LIST = "https://pubsbapi-latam.smartbike.com/api/v1/stations.json"
+    STATUS_STATIONS = "https://pubsbapi-latam.smartbike.com/api/v1/stations/status.json"
 
     resp, response_token = http.request(STATUS_STATIONS, method='GET', headers=headers_access)
     #resp, response_token = http.request(STATIONS_LIST, method='GET', headers=headers_access)
@@ -39,7 +39,7 @@ def get_ecobici_availability():
     # 432 Normales Jose Ma Olloqui
     # 32 Electricas Florencia - Londres
     # 448 Electricas Acapulco Puebla
-    # 22 Oficina 
+    # 22 Oficina
     # 27 IMSS Toledo
     # 37 Cozumel-Puebla
 
@@ -52,10 +52,10 @@ def get_ecobici_availability():
     response += "<p>Elec Acapulco-Puebla: " +str(status_data["stationsStatus"][448]['availability']['bikes'])
     response += "<p>Cozumel-Puebla: " +str(status_data["stationsStatus"][37]['availability']['bikes'])
     response += "<p>Elec Jose Ma Olloqui: " +str(status_data["stationsStatus"][433]['availability']['bikes'])
-    response += "<p>Jose Ma Olloqui: " +str(status_data["stationsStatus"][432]['availability']['bikes'])    
+    response += "<p>Jose Ma Olloqui: " +str(status_data["stationsStatus"][432]['availability']['bikes'])
     response += "</body></html>"
     """
-    
+
     # https://www.tablesgenerator.com/html_tables#
 
     response = "<html>"
@@ -170,7 +170,7 @@ def endpoint(event, context):
         "statusCode": 200,
         "headers": {
             'Content-Type': 'text/html',
-        }, 
+        },
         "body": data
     }
     return response
